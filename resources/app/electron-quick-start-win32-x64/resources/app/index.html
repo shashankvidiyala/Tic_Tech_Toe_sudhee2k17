@@ -1,0 +1,194 @@
+<html>
+        <head>
+            <style>
+                .xno{
+                    padding: 20px;
+                    border: 10px 0ch black;
+                    font-size: 60px;
+                    background-color: antiquewhite;
+                }
+                #demo,#result{
+                    font-size: 60px;
+                    font-family: cursive;
+                }
+                #mytablex{
+                    border: 5px solid sienna;
+
+                }
+                #rules{
+                  float: left;
+                  font-size: 20px;
+
+                }
+                #score{
+                    float: right;
+                    font-size: 36px;
+                }
+                </style>
+
+            <script>
+                var qna=["<h2>1.STATEMENTS</h2>All cats are bulls<br/><br/>some bulls are dogs<br/><h2>CONCLUSIONS:</h2><br/>I.  All bulls are cats<br/><br/>II. Some cats are dogs<br/><br/>III.No cats are dogs<br/><br/>IV.Some bulls are cats<br/><br/>A)Only IV follows       B)Only III follows<br/><br/>C)Only II follows       D)IV and II follows<br/><br/>E)IV and either II or III follow<br/><br/>"];
+                var ans=["a"];
+                var qid,ques,opt,ip1;
+                var boxi=document.getElementsByClassName("xno");
+                //const prompt = require('electron-prompt');
+              //const smalltalk=require('smalltalk');
+
+
+                var countDownDate = new Date();
+                var t2=new Date(countDownDate);
+                t2.setMinutes(countDownDate.getMinutes()+30);
+                countDownDate=t2;
+                var en=true;
+                var x = setInterval(function() {
+                    // Get todays date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now an the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes and seconds
+                    //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Display the result in the element with id="demo"
+                    document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+
+                    // If the count down is finished, write some text
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("demo").innerHTML = "EXPIRED";
+                        en=false;
+
+                            }
+                            }, 1000);
+                var k=0,c=0;
+                function toggle(elem){
+                                if(en==true){
+                                    if(document.getElementById(elem.id).innerHTML=="+"){
+                                    setquestion(elem.id);
+
+                              
+                                }
+                                else{
+                                    ip1.disabled=true;
+                                document.getElementById("btn1").disabled=true;
+                                }
+                            }
+                        }
+                            function check(){
+                              let countcheck=0;
+                                    if(boxi[0].innerHTML=="o"&&boxi[1].innerHTML=="o"&&boxi[2].innerHTML=="o")
+                                        countcheck++;
+                                    if(boxi[3].innerHTML=="o"&&boxi[4].innerHTML=="o"&&boxi[5].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[6].innerHTML=="o"&&boxi[7].innerHTML=="o"&&boxi[8].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[0].innerHTML=="o"&&boxi[3].innerHTML=="o"&&boxi[6].innerHTML=="o")
+                                        countcheck++;
+                                    if(boxi[1].innerHTML=="o"&&boxi[4].innerHTML=="o"&&boxi[7].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[2].innerHTML=="o"&&boxi[5].innerHTML=="o"&&boxi[8].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[0].innerHTML=="o"&&boxi[4].innerHTML=="o"&&boxi[8].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[2].innerHTML=="o"&&boxi[4].innerHTML=="o"&&boxi[6].innerHTML=="o")
+                                            countcheck++;
+                                    if(countcheck==2)
+                                        endgame();
+
+
+
+                            }
+                            function endgame(){
+                                en=false;
+                                document.getElementById("result").innerHTML="You won!! Time left"+document.getElementById("demo").innerHTML;
+                                document.getElementById("demo").style.visibility="hidden";
+
+                            }
+                            function setquestion(idk){
+                                ques=document.getElementById("q1");
+                                opt=document.getElementById("options");
+                                ip1=document.getElementById("ip1");
+               
+                                qid=idk;
+                                console.log(qna[0]);
+                                ques.innerHTML=qna[0];
+                                ip1.disabled=false;
+                                document.getElementById("btn1").disabled=false;
+                                
+
+                            }
+                            function eval(){
+                                k=ip1.value;
+                                console.log(k);
+                                if(k!=null){
+                                    c++;
+                                  if(k==ans[0])
+                                    document.getElementById(qid).innerHTML="o";
+                                else
+                                    document.getElementById(qid).innerHTML="x";
+                                    ip1.disabled=true;
+                                document.getElementById("btn1").disabled=true;
+
+                                    
+                                }
+                               check();
+                                if(c==9){
+                                    en=false;
+                                    }
+                                }
+
+                            
+
+
+
+
+
+            </script>
+        </head>
+        <body>
+
+                <center>
+                    <p id="demo"></p>
+                    <p id="result"></p>
+
+                <table id="mytablex">
+                        <tr>
+                          <th><button id="1" class="xno" onclick="toggle(this)" >+</button></th>
+                          <th><button id="2" class="xno" onclick="toggle(this)" >+</button></th>
+                          <th><button id="3" class="xno" onclick="toggle(this)" >+</button></th>
+                        </tr>
+                        <div id="score">
+                                <p>correct answer-:0</p>
+                                <p>number of lines completed-:0</p>
+                              </div>
+                              <div id="Rules">
+                                   <p id="q1"></p>
+                                   <p id="options"></p>
+                                   <form>
+                                   <input type="text" id="ip1">
+                                   </form>
+                                   <button id="btn1" onclick="eval()" disabled>submit</button>
+                                  </div>
+
+
+                        <tr>
+                          <td><button id="4" class="xno" onclick="toggle(this)" >+</button></td>
+                          <td><button id="5" class="xno" onclick="toggle(this)">+</button></td>
+                          <td><button id="6" class="xno" onclick="toggle(this)">+</button></td>
+                        </tr>
+                        <tr>
+                          <td><button id="7" class="xno" onclick="toggle(this)">+</button></td>
+                          <td><button id="8" class="xno" onclick="toggle(this)">+</button></td>
+                          <td><button id="9" class="xno" onclick="toggle(this)">+</button></td>
+                        </tr>
+                </table>
+                    </center>
+
+
+
+        </body>
+    </html>

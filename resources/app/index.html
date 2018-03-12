@@ -1,0 +1,217 @@
+<html>
+        <head>
+            <style>
+                body {
+                background-image:    url("final.png");
+                background-size:     cover;                      /* <------ */
+                background-repeat:   no-repeat;
+                background-position: center center;              /* optional, center the image */
+            }
+                .xno{
+                    padding: 20px;
+                    border: 10px 0ch black;
+                    font-size: 60px;
+                    background-color: antiquewhite;
+                }
+                #demo,#result{
+                    font-size: 60px;
+                    font-family: cursive;
+                }
+                #mytablex{
+                    border: 5px solid sienna;
+
+                }
+                #rules{
+                  float: left;
+                  font-size: 20px;
+                  border:thick solid royalblue;
+
+                }
+                #score{
+                    float: right;
+                    font-size: 36px;
+                }
+                </style>
+
+            <script>
+                var qna=["<b>1.STATEMENTS</b><br/>All cats are bulls<br/>some bulls are dogs<br/><br/><b>CONCLUSIONS:</b><br/>I.  All bulls are cats<br/>II. Some cats are dogs<br/>III.No cats are dogs<br/>IV.Some bulls are cats<br/><br/>A)Only IV follows<br/>B)Only III follows<br/>C)Only II follows<br/>D)IV and II follows<br/>E)IV and either II or III follow",
+"<b>2.STATEMENTS</b><br/>a.Some doctors are treatments.<br/>b.All treatments are Indians.<br/>c.Some Indians are stars.<br/><br/><b>CONCLUSIONS:</b><br/>I.   Some treatments are Indians<br/>II.  Some Doctors are Indians<br/>III. Some doctors are stars<br/>IV.  Some doctors are not stars<br/><br/>1)I,II and III follow<br/>2)I,II and IV follow<br/>3)II and III follow<br/>4) None follows<br/>5)I,II and either III or IV follow<br/>",
+"<b>3.STATEMENTS</b><br/>Some big are small.<br/>No small is large.<br/><br/><b>CONCLUSIONS:</b><br/>I. Some large are not big<br/>II.NO big is large<br/>III.Some small are not tiny<br/>IV. Some big are not tiny<br/><br/>1)Only I follows<br/>2)Only II follows<br/>3)Only III follows<br/>4)Only IV follows<br/>5)None follows<br/>",
+"4.<b>STATEMENTS</b><br/>All hunters are punters<br/>Some punters are tigers<b><br/><br/>CONCLUSIONS:</b><br/>I. Some hunters are tigers<br/>II. Alltigers are punters<br/>III.Some punters are hunters<br/>IV. No punters are hunters<br/><br/>1)I and II follow<br/>2)II and III follow<br/>3)I and III follow<br/>4)II and IV follow<br/> 5) None of these follow<br/>",
+"<b>5.STATEMENTS</b><br/>All girls are cute<br/><b>CONCLUSIONS:</b><br/>I.Some boys are cute<br/>II.No boys are cute<br/>III.Some cute are girls<br/>IV. Nocute are girls<br/><br/>1) Only I follows<br/>2)Only III follows<br/>3)Either I or III follow<br/>4)Either III or IV follow<br/>5)I and III follow<br/>",
+"<b>6.STATEMENTS</b><br/>All bricks are tricks<br/>some tricks are bicks<br/><br/><b>CONCLUSIONS:</b><br/>I.No brick is a bick.<br/>II.Some bricks are bicks<br/>III.Some bicks are tricks<br/>IV. Some tricks are not bricks<br/><br/>1)Only I follows<br/>2)Only II and IV follow<br/>3)Only II and III follow<br/>4)Either I or IV follows<br/>5)Either I or II and III follow<br/>",
+"<b>1.STATEMENTS</b><br/>All cats are bulls<br/>some bulls are dogs<br/><br/><b>CONCLUSIONS:</b><br/>I.  All bulls are cats<br/>II. Some cats are dogs<br/>III.No cats are dogs<br/>IV.Some bulls are cats<br/><br/>A)Only IV follows<br/>B)Only III follows<br/>C)Only II follows<br/>D)IV and II follows<br/>E)IV and either II or III follow",
+"<b>2.STATEMENTS</b><br/>a.Some doctors are treatments.<br/>b.All treatments are Indians.<br/>c.Some Indians are stars.<br/><br/><b>CONCLUSIONS:</b><br/>I.   Some treatments are Indians<br/>II.  Some Doctors are Indians<br/>III. Some doctors are stars<br/>IV.  Some doctors are not stars<br/><br/>1)I,II and III follow<br/>2)I,II and IV follow<br/>3)II and III follow<br/>4) None follows<br/>5)I,II and either III or IV follow<br/>",
+"<b>3.STATEMENTS</b><br/>Some big are small.<br/>No small is large.<br/><br/><b>CONCLUSIONS:</b><br/>I. Some large are not big<br/>II.NO big is large<br/>III.Some small are not tiny<br/>IV. Some big are not tiny<br/><br/>1)Only I follows<br/>2)Only II follows<br/>3)Only III follows<br/>4)Only IV follows<br/>5)None follows<br/>",
+"4.<b>STATEMENTS</b><br/>All hunters are punters<br/>Some punters are tigers<b><br/><br/>CONCLUSIONS:</b><br/>I. Some hunters are tigers<br/>II. Alltigers are punters<br/>III.Some punters are hunters<br/>IV. No punters are hunters<br/><br/>1)I and II follow<br/>2)II and III follow<br/>3)I and III follow<br/>4)II and IV follow<br/> 5) None of these follow<br/>",
+"<b>5.STATEMENTS</b><br/>All girls are cute<br/><b>CONCLUSIONS:</b><br/>I.Some boys are cute<br/>II.No boys are cute<br/>III.Some cute are girls<br/>IV. Nocute are girls<br/><br/>1) Only I follows<br/>2)Only III follows<br/>3)Either I or III follow<br/>4)Either III or IV follow<br/>5)I and III follow<br/>"
+
+];
+                var ans=["e","4","5","5","5","5","e","4","5","5","5"];
+                var qid,ques,opt,ip1;
+                var boxi=document.getElementsByClassName("xno");
+                var corr=0;
+                //const prompt = require('electron-prompt');
+              //const smalltalk=require('smalltalk');
+
+
+                var countDownDate = new Date();
+                var t2=new Date(countDownDate);
+                t2.setMinutes(countDownDate.getMinutes()+30);
+                countDownDate=t2;
+                var en=true;
+                var x = setInterval(function() {
+                    // Get todays date and time
+                    var now = new Date().getTime();
+
+                    // Find the distance between now an the count down date
+                    var distance = countDownDate - now;
+
+                    // Time calculations for days, hours, minutes and seconds
+                    //var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    //var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Display the result in the element with id="demo"
+                    document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
+
+                    // If the count down is finished, write some text
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("demo").innerHTML = "EXPIRED";
+                        en=false;
+
+                            }
+                            }, 1000);
+                var k=0,c=0;
+                function toggle(elem){
+                                if(en==true){
+                                    if(document.getElementById(elem.id).innerHTML=="+"){
+                                    setquestion(elem.id);
+
+                              
+                                }
+                                else{
+                                    ip1.disabled=true;
+                                document.getElementById("btn1").disabled=true;
+                                }
+                            }
+                        }
+                            function check(){
+                              let countcheck=0;
+                                    if(boxi[0].innerHTML=="o"&&boxi[1].innerHTML=="o"&&boxi[2].innerHTML=="o")
+                                        countcheck++;
+                                    if(boxi[3].innerHTML=="o"&&boxi[4].innerHTML=="o"&&boxi[5].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[6].innerHTML=="o"&&boxi[7].innerHTML=="o"&&boxi[8].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[0].innerHTML=="o"&&boxi[3].innerHTML=="o"&&boxi[6].innerHTML=="o")
+                                        countcheck++;
+                                    if(boxi[1].innerHTML=="o"&&boxi[4].innerHTML=="o"&&boxi[7].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[2].innerHTML=="o"&&boxi[5].innerHTML=="o"&&boxi[8].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[0].innerHTML=="o"&&boxi[4].innerHTML=="o"&&boxi[8].innerHTML=="o")
+                                            countcheck++;
+                                    if(boxi[2].innerHTML=="o"&&boxi[4].innerHTML=="o"&&boxi[6].innerHTML=="o")
+                                            countcheck++;
+                                    document.getElementById("score").innerHTML="<p>correct answer-:"+corr+"</p><p>number of lines completed-:" + countcheck+"</p>"
+                                    if(countcheck==2)
+                                        endgame();
+
+
+
+                            }
+                            function endgame(){
+                                en=false;
+                                document.getElementById("result").innerHTML="You won!! Time left"+document.getElementById("demo").innerHTML;
+                                document.getElementById("demo").style.visibility="hidden";
+
+                            }
+                            function setquestion(idk){
+                                ques=document.getElementById("q1");
+                                opt=document.getElementById("options");
+                                ip1=document.getElementById("ip1");
+               
+                                qid=idk-1;
+                                console.log(qna[qid]);
+                                ques.innerHTML=qna[qid];
+                                ip1.disabled=false;
+                                document.getElementById("btn1").disabled=false;
+                                
+
+                            }
+                            function eval(){
+                                k=ip1.value;
+                                console.log(k);
+                                if(k!=null){
+                                    c++;
+                                  if(k.toLowerCase()==ans[qid]){
+                                    document.getElementById(qid+1).innerHTML="o";
+                                    corr++;
+                                  }
+                                else
+                                    document.getElementById(qid+1).innerHTML="x";
+                                    ip1.disabled=true;
+                                document.getElementById("btn1").disabled=true;
+
+                                    
+                                }
+                               check();
+                                if(c==9){
+                                    en=false;
+                                    }
+                                }
+
+                            
+
+
+
+
+
+            </script>
+        </head>
+        <body>
+
+                <center>
+                    <p id="demo"></p>
+                    <p id="result"></p>
+
+                <table id="mytablex">
+                        <tr>
+                          <th><button id="1" class="xno" onclick="toggle(this)" >+</button></th>
+                          <th><button id="2" class="xno" onclick="toggle(this)" >+</button></th>
+                          <th><button id="3" class="xno" onclick="toggle(this)" >+</button></th>
+                        </tr>
+                        <div id="score">
+                                <p>correct answer-:0</p>
+                                <p>number of lines completed-:0</p>
+                              </div>
+                              <div id="Rules">
+                                   <p id="q1"></p>
+                                   <p id="options"></p>
+                                   <form>
+                                   <input type="text" id="ip1">
+                                   </form>
+                                   <button id="btn1" onclick="eval()" disabled>submit</button>
+                                  </div>
+
+
+                        <tr>
+                          <td><button id="4" class="xno" onclick="toggle(this)" >+</button></td>
+                          <td><button id="5" class="xno" onclick="toggle(this)">+</button></td>
+                          <td><button id="6" class="xno" onclick="toggle(this)">+</button></td>
+                        </tr>
+                        <tr>
+                          <td><button id="7" class="xno" onclick="toggle(this)">+</button></td>
+                          <td><button id="8" class="xno" onclick="toggle(this)">+</button></td>
+                          <td><button id="9" class="xno" onclick="toggle(this)">+</button></td>
+                        </tr>
+                </table>
+                    </center>
+
+
+
+        </body>
+    </html>

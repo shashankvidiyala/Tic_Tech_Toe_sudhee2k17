@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+
+    function validate(b)
+          {
+
+             if( document.myForm.password.value == "" )
+             {
+                alert( "Please provide your pin!" );
+                document.myForm.Name.focus() ;
+                return false;
+             }
+             else if(document.myForm.password.value == "qacd"){
+
+              redirect();
+
+             }
+
+          }
+          function redirect(){
+            document.getElementById("redirect").innerHTML="Here You go";
+           //window.location="index.html";
+          }
+    </script>
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+
+
+<body background="image3.jpg">
+    <div class="login">
+  <form name="myForm" onsubmit="" action="#">
+    <!--input type="text" placeholder="Username" id="username"-->
+<input type="password" placeholder="ENTER PIN" id="password" >
+  <a href="index.html" class="forgot" id="redirect"></a>
+  <input type="submit"  onclick="validate(this)" value="Start Game!">
+  </form>
+</div>
+<div class="shadow"></div>
+</body>
+
+</html>
